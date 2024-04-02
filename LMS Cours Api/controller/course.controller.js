@@ -11,9 +11,7 @@ const getCourses = async (req, res) => {
     res.json({
       status: "success",
       count: allCourses.length,
-      data: {
-        courses : allCourses
-      }
+      courses : allCourses
     });
 };
 
