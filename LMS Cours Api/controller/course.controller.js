@@ -19,12 +19,14 @@ const createCourse = async (req, res) => {
 
    try{ 
     const newCourse = await prisma.course.create({
-      data: {
-        title: req.body.title,
-        description: req.body.description,
-        instructor: req.body.instructor,
-        price: req.body.price
-      }
+      // data: {
+      //   title: req.body.title,
+      //   description: req.body.description,
+      //   instructor: req.body.instructor,
+      //   price: req.body.price
+        
+      // }
+      data: req.body
     });
     res.json({
       message: 'Course added successfully',

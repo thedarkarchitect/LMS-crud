@@ -5,19 +5,19 @@ import axios from "axios";
 const AddCoursePage = () => {
 	const addCourse = async (newCourse) => {
 		try{
-      await axios.post(
-        "http://localhost:3001/api/courses", 
-        {
-          newCourse
-        }
-      );
-      // const res = await fetch("http://localhost:3001/api/courses", {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(newCourse),
-      // });
+      // await axios.post(
+      //   "http://localhost:3001/api/courses", 
+      //   {
+      //     newCourse
+      //   }
+      // );
+      const res = await fetch("http://localhost:3001/api/courses", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCourse),
+      });
       alert('Course posted successfully!');
       return;
       
