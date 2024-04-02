@@ -4,7 +4,7 @@ import Form from '../components/Form';
 const EditCourse = () => {
   return (
     <>
-      <Form />
+      <Form buttonName={"Update"}/>
     </>
   )
 }
