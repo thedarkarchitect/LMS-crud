@@ -1,6 +1,5 @@
-import React from "react";
-import Form from "../components/Form";
-import axios from "axios";
+import AddForm from "../components/AddForm";
+// import axios from "axios";
 
 const AddCoursePage = () => {
 	const addCourse = async (newCourse) => {
@@ -11,7 +10,7 @@ const AddCoursePage = () => {
       //     newCourse
       //   }
       // );
-      const res = await fetch("http://localhost:3001/api/courses", {
+      await fetch("http://localhost:3001/api/courses", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +18,6 @@ const AddCoursePage = () => {
         body: JSON.stringify(newCourse),
       });
       alert('Course posted successfully!');
-      return;
       
     } catch(error){
       console.log('Error:', error);
@@ -29,7 +27,7 @@ const AddCoursePage = () => {
 
 	return (
 		<>
-			<Form buttonName={"Add"} route={"/"} courseSubmit={addCourse} />
+			<AddForm buttonName={"Add"} route={"/"} courseSubmit={addCourse} />
 		</>
 	);
 };

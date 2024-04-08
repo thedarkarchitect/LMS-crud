@@ -1,32 +1,34 @@
-import {React, useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate, useLoaderData } from 'react-router-dom';
 
-const Form = ({ buttonName, route, courseSubmit }) => {
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [instructor, setInstructor] = useState("");
-	const [price, setPrice] = useState(0);
+const EditForm = ({ buttonName, route, courseSubmit }) => {
+    const course = useLoaderData().data;
+	const [title, setTitle] = useState(course.title);
+	const [description, setDescription] = useState(course.description);
+	const [instructor, setInstructor] = useState(course.instructor);
+	const [price, setPrice] = useState(course.price);
 
 	const navigate = useNavigate();
 
-	const postForm = (e) => {
+	const patchForm = (e) => {
 		e.preventDefault();
 
-		const newCourse = {
+		const updatedCourse = {
 			title,
 			description,
 			instructor,
 			price
 		}
+		// console.log(updatedCourse);
 
-		courseSubmit(newCourse);
+		courseSubmit(updatedCourse);
 
-		// return navigate(route);
+		return navigate(route);
 	}
 
 	return (
 		<div className="m-8">
-			<form className="max-w-md mx-auto" onSubmit={postForm}>
+			<form className="max-w-md mx-auto" onSubmit={patchForm}>
 				<div className="relative z-0 w-full mb-5 group">
 					<input
 						type="text"
@@ -110,4 +112,4 @@ const Form = ({ buttonName, route, courseSubmit }) => {
 	);
 };
 
-export default Form;
+export default EditForm;
