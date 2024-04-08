@@ -1,7 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DetailsCard = ({courseName, description, id, instructor, price}) => {
+	const route = useNavigate();
+
+	const onDeleteClick = async (id) => {
+		const confirm = window.confirm("Are you sure you want to delete this course?");
+
+		if (!confirm) return;
+
+		await fetch(`http://localhost:3001/api/courses/${id}`, {
+			method: "DELETE"
+		});
+		
+		route("/");
+	};
+
 	return (
 		<>
 			{/* rounded-lg  shadow-sm bg-white dark:bg-gray-800 */}
@@ -35,7 +49,7 @@ const DetailsCard = ({courseName, description, id, instructor, price}) => {
 					</Link>
 					<button
 						type="submit"
-						// onClick={}
+						onClick={ () => onDeleteClick(id) }
 						class="text-white ms-1 bg-red-700 hover:bg-red-800 px-[210px] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
 						Delete
 					</button>
