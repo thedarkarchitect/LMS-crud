@@ -1,22 +1,23 @@
 import { Router } from "express";
 import { getCourses, createCourse, updateCourse, getCourseById, deleleCourse } from '../controller/course.controller.js';
+import { validate, courseSchema } from "../utils/data-validator.js";
 
-const router = Router();
+const courseRouter = Router();
 
-// router.get('/', showLogin);
+// courseRouter.get('/', showLogin);
 
-// router.post('/login', loginPost);
+// courseRouter.post('/login', loginPost);
 
-// router.get('/node-course', showCoursePage);
+// courseRouter.get('/node-course', showCoursePage);
 
-router.get('/', getCourses);
+courseRouter.get('/', getCourses);
 
-router.post('/', createCourse);
+courseRouter.post('/', validate(courseSchema), createCourse);
 
-router.patch('/:courseId', updateCourse);
+courseRouter.patch('/:courseId', [validate(courseSchema) ], updateCourse);
 
-router.get('/:courseId', getCourseById);
+courseRouter.get('/:courseId', getCourseById);
 
-router.delete('/:courseId', deleleCourse);
+courseRouter.delete('/:courseId', deleleCourse);
 
-export default router;
+export default courseRouter;
