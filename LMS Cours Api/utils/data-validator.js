@@ -13,6 +13,7 @@ const userSchema = joi.object({
 	name: joi.string().max(50).required(),
 	email: joi.string().email().required(),
 	age: joi.number().required(),
+	password: joi.string().min(4).max(8).required(),
 	role: joi.string().valid("ADMIN", "STUDENT", "INSTRUCTOR").required(),
 });
 

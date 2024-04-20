@@ -8,9 +8,9 @@ import { isAdmin } from "../utils/middleware.js";
 const authRouter = Router();
 
 authRouter.get("/", [checkForAuthToken, isAdmin], getUsers);
-authRouter.post("/register", createUser);
+authRouter.post("/register", validate(userSchema), createUser);
 authRouter.post("/login", userLogin);
 authRouter.delete("/logout", logout);
-authRouter.delete("/deleteUser/:id", deleteUser);
+authRouter.delete("/deleteUser/:id", isAdmin, deleteUser);
 
 export default authRouter; 

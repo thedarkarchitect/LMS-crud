@@ -1,10 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import { createJWTToken } from "../utils/jwt-auth.js";
-import { validate } from "../utils/data-validator.js";
 
 const prisma = new PrismaClient();
 
@@ -60,22 +58,14 @@ const userLogin = async (req, res) => {
 
 		if(pass){
             let userData = { name: user.name, userId: user.id, userRole: user.role };
-            let accessToken = jwt.sign(userData, process.env.JWT_ACCESS_SECRET, { expiresIn: "1h" });
-			res.json({token: accessToken});
-            // res
-			// .status(StatusCodes.CREATED)
-			// .json({
-			// 	message: "User Created",
-			// 	accessToken: accessToken,
-			// 	data: userData,
-			// });
-			
+			const token = createJWTToken(userData);
+			res.status(StatusCodes.CREATED).json({message: "User LoggedIn", token: token});
+            
         } else {
             res
 				.status(StatusCodes.BAD_REQUEST)
 				.json({ error: "Password or Email is incorrect. Login again" });
         }
-		// let refreshToken = jwt.sign
 		
 	} catch (error) {
 		res
@@ -87,9 +77,6 @@ const userLogin = async (req, res) => {
 	}
 };
 
-const logout = (req, res) => {
-	return
-};
 
 const deleteUser = async (req, res) => {
 	try{
@@ -105,4 +92,4 @@ const deleteUser = async (req, res) => {
 	}
 }
 
-export { userLogin, getUsers, createUser, deleteUser, logout };
+export { userLogin, getUsers, createUser, deleteUser };
